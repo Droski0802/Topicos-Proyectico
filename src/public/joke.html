@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jokes API Frontend</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Jokes API</h1>
+
+        <!-- Formulario para obtener chistes -->
+        <section>
+            <h2>Obtener un Chiste</h2>
+            <select id="jokeType">
+                <option value="Chuck">Chuck Norris</option>
+                <option value="Dad">Dad Joke</option>
+                <option value="Propio">Propio</option>
+            </select>
+            <button id="getJokeButton">Obtener Chiste</button>
+            <p id="jokeResult"></p>
+        </section>
+
+        <!-- Formulario para agregar un chiste -->
+        <section>
+            <h2>Agregar un Chiste</h2>
+            <form id="addJokeForm">
+                <label for="jokeText">Texto del Chiste:</label>
+                <input type="text" id="jokeText" required>
+
+                <label for="jokeAuthor">Autor del Chiste (opcional):</label>
+                <input type="text" id="jokeAuthor">
+
+                <label for="jokeScore">Puntaje (1-10):</label>
+                <input type="number" id="jokeScore" min="1" max="10" required>
+
+                <label for="jokeCategory">Categoría:</label>
+                <select id="jokeCategory" required>
+                    <option value="Dad joke">Dad joke</option>
+                    <option value="Humor Negro">Humor Negro</option>
+                    <option value="Chistoso">Chistoso</option>
+                    <option value="Malo">Malo</option>
+                </select>
+
+                <button type="submit">Agregar Chiste</button>
+            </form>
+            <p id="addJokeResult"></p>
+        </section>
+    </div>
+
+    <script src="./js/script.js"></script>
+</body>
+</html>
