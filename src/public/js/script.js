@@ -1,56 +1,64 @@
-const apiUrl = "http://localhost:3000"; // Cambia esto si tu servidor tiene otra URL
+const { text } = require("express");
+
+const apiUrl = 'http://localhost:3000'; 
+
 
 // Obtener un chiste
-document.getElementById("getJokeButton").addEventListener("click", async () => {
-  const jokeType = document.getElementById("jokeType").value;
-  const resultElement = document.getElementById("jokeResult");
-
+document.getElementById('getJokeButton').addEventListener('click', async () => {
+  const jokeType = document.getElementById('jokeType').value;
+  const resultElement = document.getElementById('jokeResult');
+  // Hace un llamado a la API para obtener el chiste especifico
   try {
     const response = await fetch(`${apiUrl}/joke/${jokeType}`);
-    if (!response.ok) {
-      throw new Error("Error al obtener el chiste");
+    if (!response.ok){
+      throw new Error('Error al obtener el chiste');
     }
     const data = await response.json();
-    if (typeof data === "object" && data !== null) {
-      resultElement.textContent =
+    // Aqui se verifica si es un objeto o nulo (Para saber cual de los 3 tipos de chistes es)
+    if (typeof data === 'object' && data !== null) {
+      resultElement.textContent = 
         data.joke || data.message || JSON.stringify(data);
     } else {
-      resultElement.textContent = data;
+      resultElement.textconte = data;
     }
   } catch (error) {
+    // Muestra un error si hay algun tipo de problema con la llamada fetch
     resultElement.textContent = error.message;
   }
 });
 
+
 // Agregar un chiste
-document.getElementById("addJokeForm").addEventListener("submit", async (e) => {
+document.getElementById('addJokeForm').addEventListener('submit', async (e) => {
   e.preventDefault();
 
-  const jokeText = document.getElementById("jokeText").value;
-  const jokeAuthor = document.getElementById("jokeAuthor").value || undefined;
-  const jokeScore = parseInt(document.getElementById("jokeScore").value);
-  const jokeCategory = document.getElementById("jokeCategory").value;
-  const resultElement = document.getElementById("addJokeResult");
+  const jokeText = document.getElementById('jokeText').value;
+  const jokeAuthor = document.getElementById('jokeAuthor').value || undefined;
+  const jokeScore = parseInt(document.getElementById('jokeScore').value);
+  const jokeCategory = document.getElementById('jokeCategory').value;
+  const resultElement = document.getElementById('addJokeResult');
 
+  // Hace un llamado a la api para agregar el chiste pasandole los parametros
   try {
     const response = await fetch(`${apiUrl}/joke`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
+      method: 'POST',
+      headers: { "Content-Type": "application/json"},
       body: JSON.stringify({
         text: jokeText,
         author: jokeAuthor,
         score: jokeScore,
         category: jokeCategory,
       }),
-    });
-
-    if (!response.ok) {
-      throw new Error("Error al agregar el chiste");
+    }); 
+    // Lanza error si no pudo agregar el chiste
+    if (!response.ok){
+      throw new Error('Error al agregar el chiste');
     }
-
     const data = await response.json();
+    // El chiste fue agregado con exito
     resultElement.textContent = `Chiste agregado con ID: ${data.id}`;
-  } catch (error) {
+  } catch (error){
+    // Mensaje de error si tuvo algun problema con el llamado a la API
     resultElement.textContent = error.message;
   }
 });
