@@ -16,4 +16,8 @@ app.get('/joke', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'joke.html'));
 });
 
+app.get('/score', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'score.html'));
+});
+
 module.exports = app;
