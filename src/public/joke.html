@@ -1,95 +1,94 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Jokes API Frontend</title>
-    <link rel="stylesheet" href="styles.css">
-</head>
-<body>
+    <link rel="stylesheet" href="/css/styles.css" />
+  </head>
+  <body>
     <div class="container">
-        <h1>Jokes API</h1>
+      <h1>Jokes API</h1>
 
-        <!-- Formulario para obtener chistes -->
-        <section>
-            <h2>Obtener un Chiste</h2>
-            <select id="jokeType">
-                <option value="Chuck">Chuck Norris</option>
-                <option value="Dad">Dad Joke</option>
-                <option value="Propio">Propio</option>
-            </select>
-            <button id="getJokeButton">Obtener Chiste</button>
-            <p id="jokeResult"></p>
-        </section>
+      <!-- Formulario para obtener chistes -->
+      <section>
+        <h2>Obtener un Chiste</h2>
+        <select id="jokeType">
+          <option value="Chuck">Chuck Norris</option>
+          <option value="Dad">Dad Joke</option>
+          <option value="Propio">Propio</option>
+        </select>
+        <button id="getJokeButton">Obtener Chiste</button>
+        <p id="jokeResult"></p>
+      </section>
 
-        <!-- Formulario para agregar un chiste -->
-        <section>
-            <h2>Agregar un Chiste</h2>
-            <form id="addJokeForm">
-                <label for="jokeText">Texto del Chiste:</label>
-                <input type="text" id="jokeText" required>
+      <!-- Formulario para agregar un chiste -->
+      <section>
+        <h2>Agregar un Chiste</h2>
+        <form id="addJokeForm">
+          <label for="jokeText">Texto del Chiste:</label>
+          <input type="text" id="jokeText" required />
 
-                <label for="jokeAuthor">Autor del Chiste (opcional):</label>
-                <input type="text" id="jokeAuthor">
+          <label for="jokeAuthor">Autor del Chiste (opcional):</label>
+          <input type="text" id="jokeAuthor" />
 
-                <label for="jokeScore">Puntaje (1-10):</label>
-                <input type="number" id="jokeScore" min="1" max="10" required>
+          <label for="jokeScore">Puntaje (1-10):</label>
+          <input type="number" id="jokeScore" min="1" max="10" required />
 
-                <label for="jokeCategory">Categoría:</label>
-                <select id="jokeCategory" required>
-                    <option value="Dad joke">Dad joke</option>
-                    <option value="Humor Negro">Humor Negro</option>
-                    <option value="Chistoso">Chistoso</option>
-                    <option value="Malo">Malo</option>
-                </select>
+          <label for="jokeCategory">Categoría:</label>
+          <select id="jokeCategory" required>
+            <option value="Dad joke">Dad joke</option>
+            <option value="Humor Negro">Humor Negro</option>
+            <option value="Chistoso">Chistoso</option>
+            <option value="Malo">Malo</option>
+          </select>
 
-                <button type="submit">Agregar Chiste</button>
-            </form>
-            <p id="addJokeResult"></p>
-        </section>
+          <button type="submit">Agregar Chiste</button>
+        </form>
+        <p id="addJokeResult"></p>
+      </section>
 
-        <!-- Formulario para buscar un chiste por su id -->
-     <section>
+      <!-- Formulario para buscar un chiste por su id -->
+      <section>
         <h2>Obtener Chiste por su ID</h2>
         <form id="searchByIdForm">
-            <label for="jokeId">ID del Chiste:</label>
-            <input type="text" id="jokeIdInput" required>
+          <label for="jokeId">ID del Chiste:</label>
+          <input type="text" id="jokeIdInput" required />
 
-            <button type="searchJoke">Buscar Chiste</button>
+          <button type="searchJoke">Buscar Chiste</button>
+        </form>
+        <p id="jokeSearchIdResult"></p>
+      </section>
 
-           </form> 
-           <p id="jokeSearchIdResult"></p>
-        </section>
-
-
-         <!-- Seccion para llevar a la pagina de buscar por score-->
-     <section>
+      <!-- Seccion para llevar a la pagina de buscar por score-->
+      <section>
         <div class="container">
-            <h1>Buscar Chistes por Puntaje</h1>
-    
-            <div class="form-group">
-                <label for="score">Ingrese un puntaje (1-10):</label>
-                <input type="number" id="score" min="1" max="10" >
-                <button id="searchButton">Buscar</button>
-            </div>
-    
-            <div id="error" class="error"></div>
-    
-            <table id="jokesTable" class="hidden">
-                <thead>
-                    <tr>
-                        <th>Texto</th>
-                        <th>Autor</th>
-                        <th>Puntaje</th>
-                        <th>Categoría</th>
-                    </tr>
-                </thead>
-                <tbody></tbody>
-            </table>
+          <h1>Buscar Chistes por Puntaje</h1>
+
+          <div class="form-group">
+            <label for="score">Ingrese un puntaje (1-10):</label>
+            <input type="number" id="score" min="1" max="10" />
+            <button id="searchButton">Buscar</button>
+          </div>
+
+          <div id="error" class="error"></div>
+
+          <table id="jokesTable" class="hidden">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Texto</th>
+                <th>Autor</th>
+                <th>Puntaje</th>
+                <th>Categoría</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
         </div>
-        </section>
+      </section>
     </div>
 
     <script src="./js/script.js"></script>
-</body>
+  </body>
 </html>
