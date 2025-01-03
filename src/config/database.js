@@ -6,4 +6,5 @@ const connectDB = async () => {
         .catch(err => console.error('Error al conectar a MongoDB:', err));
 };
 
+
 module.exports = connectDB;
