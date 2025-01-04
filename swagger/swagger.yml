@@ -1,0 +1,170 @@
+openapi: 3.0.0
+info:
+  title: Jokes API
+  description: API for creating and managing jokes
+  version: 1.0.0
+servers:
+  - url: http://localhost:3000
+    description: Local server
+
+components:
+  schemas:
+    Joke:
+      type: object
+      required:
+        - text
+        - category
+        - score
+        - author
+      properties:
+        id:
+          type: string
+          description: The auto-generated id of the joke
+        text:
+          type: string
+          description: The text of the joke
+        author:
+          type: string
+          description: The author of the joke
+          default: "Se perdió en el Ávila como Led"
+        score:
+          type: integer
+          description: The score of the joke
+        category:
+          type: string
+          description: The category of the joke
+      example:
+        id: 1
+        text: "¿Cuál es el pez más divertido? El pez payaso."
+        author: "Anónimo"
+        score: 5
+        category: "Dad joke"
+
+tags:
+  - name: Jokes
+    description: API para gestionar chistes
+
+paths:
+  /joke/search/{id}:
+    get:
+      summary: Buscar chiste por ID
+      tags: [Jokes]
+      description: Obtiene un chiste a partir de su ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID del chiste
+          schema:
+            type: string
+            example: 60d21bab67d0d8992e610c85
+      responses:
+        "200":
+          description: Chiste obtenido con éxito
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  _id:
+                    type: string
+                    example: 60d21bab67d0d8992e610c85
+                  text:
+                    type: string
+                    example: "¿Cuál es el pez más divertido? El pez payaso."
+                  author:
+                    type: string
+                    example: "Anónimo"
+                  score:
+                    type: integer
+                    example: 5
+                  category:
+                    type: string
+                    example: "Dad joke"
+        "400":
+          description: ID inválida
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "ID Invalida"
+        "404":
+          description: No se encontró el chiste con el ID proporcionado
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "No existe ningun chiste con ese ID"
+        "500":
+          description: Error al buscar el chiste
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Error al buscar el chiste"
+
+  /joke/category/{category}:
+    get:
+      summary: Obtener la cantidad de chistes por categoría
+      tags: [Jokes]
+      parameters:
+        - in: path
+          name: category
+          schema:
+            type: string
+            enum: [Dad joke, Humor Negro, Chistoso, Malo]
+          required: true
+          description: La categoría de los chistes a buscar
+      responses:
+        "200":
+          description: Cantidad de chistes obtenida con éxito
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  category:
+                    type: string
+                    example: "Dad joke"
+                  count:
+                    type: integer
+                    example: 15
+        "400":
+          description: Categoría inválida
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "La categoria no existe"
+        "404":
+          description: No se encontraron chistes en esta categoría
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "No se encontraron chistes en la categoría Dad joke"
+        "500":
+          description: Error al obtener la cantidad de chistes
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Error al obtener la cantidad de chistes"
