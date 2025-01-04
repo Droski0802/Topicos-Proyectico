@@ -1,11 +1,13 @@
-const app = require("./app");
+const app = require("./app"); 
 
-const port = process.env.port || 3000;
+// Especificamos el puerto donde correra la aplicacion
+const port = process.env.port || 3000; 
 
-app.listen(port, () => {
-  console.log(`Server running on http://localhost:${port}`);
-});
+// Iniciamos el servidor
+app.listen(port, () => { 
+  console.log(`Server running on http://localhost:${port}`); 
+}); 
 
-const connectDB = require("./config/database");
-
-connectDB();
+// Conectamos a la base de datos
+const connectDB = require("./config/database"); 
+connectDB(); 

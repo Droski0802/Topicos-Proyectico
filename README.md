@@ -22,7 +22,7 @@
 
 #
 
-# 2- TENER MONGO INSTALADO
+# 2- TENER BD MONGO INSTALADO
 
 #
 
@@ -34,4 +34,4 @@
 
 #
 
-# 5 - ABRIR TU "http://localhost:3000"
+# 5 - ABRIR TU 'http://localhost:3000'
