@@ -7,13 +7,16 @@ const {
   JokesByCategory,
 } = require("../controllers/jokeController");
 
+// Definimos el router para esoecificar las rutas de los chistes
 const router = express.Router();
 
-router.get("/:type", getJoke);
-router.get("/:type", getJoke);
-router.post("/", createJoke);
+// Definimos las rutas
+router.get("/:type", getJoke); 
+router.get("/:type", getJoke); 
+router.post("/", createJoke); 
 router.get("/search/:id", searchJokeByID);
-router.get("/score/:score", getJokesByScore);
+router.get("/score/:score", getJokesByScore); 
 router.get("/category/:category", JokesByCategory);
 
+// Exportamos las rutas
 module.exports = router;
