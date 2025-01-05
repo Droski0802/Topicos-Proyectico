@@ -30,9 +30,11 @@ components:
         score:
           type: integer
           description: The score of the joke
+          example: 5
         category:
           type: string
           description: The category of the joke
+          enum: [Dad joke, Humor Negro, Chistoso, Malo]
       example:
         id: 1
         text: "¿Cuál es el pez más divertido? El pez payaso."
@@ -45,6 +47,159 @@ tags:
     description: API para gestionar chistes
 
 paths:
+
+  /joke/{type}:
+    get:
+      summary: Obtener un chiste según el tipo
+      tags: [Jokes]
+      description: Obtiene un chiste del tipo especificado (Chuck Norris, Dad Jokes o Propio).
+      parameters:
+        - name: type
+          in: path
+          required: true
+          description: Tipo de chiste a obtener
+          schema:
+            type: string
+            enum: [Chuck, Dad, Propio]
+            example: "Chuck"
+      responses:
+        "200":
+          description: Chiste obtenido con éxito
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  joke:
+                    type: string
+                    example: "Chuck Norris doesn’t read books. He stares them down until he gets the information he wants."
+        "400":
+          description: Tipo inválido
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "Tipo inválido"
+        "404":
+          description: No se encontraron chistes del tipo especificado
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "No se encontraron chistes de tipo Propio"
+        "500":
+          description: Error al obtener el chiste
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Error al obtener el chiste"
+
+  /joke:
+    post:
+      summary: Crear un nuevo chiste
+      tags: [Jokes]
+      description: Guarda un nuevo chiste en la base de datos.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/models/joke'
+      responses:
+        "201":
+          description: Chiste creado con éxito
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    example: "60d21bab67d0d8992e610c85"
+        "400":
+          description: Error en los datos enviados
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "Faltan campos obligatorios o son inválidos"
+        "500":
+          description: Error al guardar el chiste
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Error al guardar el chiste"
+
+  /joke/score/{score}:
+    get:
+      summary: Obtener chistes por puntaje
+      tags: [Jokes]
+      description: Obtiene todos los chistes con un puntaje específico.
+      parameters:
+        - name: score
+          in: path
+          required: true
+          description: Puntaje del chiste (entre 1 y 10)
+          schema:
+            type: integer
+            example: 5
+      responses:
+        "200":
+          description: Chistes obtenidos con éxito
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/models/joke'
+        "400":
+          description: Puntaje inválido
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "El puntaje debe estar entre 1 y 10"
+        "404":
+          description: No se encontraron chistes para este puntaje
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "No se encontraron chistes con puntaje 5"
+        "500":
+          description: Error al buscar chistes
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Error al buscar chistes"
+
   /joke/search/{id}:
     get:
       summary: Buscar chiste por ID
