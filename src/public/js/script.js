@@ -93,7 +93,7 @@ document.addEventListener("DOMContentLoaded", () => {
         jokeSearchIdResult.textContent = error.message;
       }
     });
-
+    
   //Buscar cantidad de chistes por categoria
   document
     .getElementById("quantifyCategoryForm")
