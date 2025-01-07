@@ -55,25 +55,25 @@
         <section id="sectionSearchJoke">
           <h2>Ingrese ID</h2>
           <form id="uSearchByIdForm">
-            <label for="jokeId">ID del Chiste:</label>
+            <label for="uJokeIdInput">ID del Chiste:</label>
             <input type="text" id="uJokeIdInput" required />
 
-            <button type="searchJoke">Buscar Chiste</button>
+            <button>Buscar Chiste</button>
           </form>
-          <p id="jokeSearchIdResult"></p>
+          <p id="ujokeSearchIdResult"></p>
         </section>
-        <form id="addJokeForm" hidden> 
-          <label for="jokeText">Texto del Chiste:</label> 
-          <input type="text" id="jokeText" required /> 
+        <form id="updateJokeForm" hidden> 
+          <label for="ujokeText">Texto del Chiste:</label> 
+          <input type="text" id="ujokeText" required /> 
  
-          <label for="jokeAuthor">Autor del Chiste (opcional):</label> 
-          <input type="text" id="jokeAuthor" /> 
+          <label for="ujokeAuthor">Autor del Chiste:</label> 
+          <input type="text" id="ujokeAuthor" /> 
  
-          <label for="jokeScore">Puntaje (1-10):</label> 
-          <input type="number" id="jokeScore" min="1" max="10" required /> 
+          <label for="ujokeScore">Puntaje (1-10):</label> 
+          <input type="number" id="ujokeScore" min="1" max="10" required /> 
  
-          <label for="jokeCategory">Categoría:</label> 
-          <select id="jokeCategory" required> 
+          <label for="ujokeCategory">Categoría:</label> 
+          <select id="ujokeCategory" required> 
             <option value="Dad joke">Dad joke</option> 
             <option value="Humor Negro">Humor Negro</option> 
             <option value="Chistoso">Chistoso</option> 
@@ -83,7 +83,7 @@
           <button type="submit">Agregar Chiste</button> 
         </form>
         
-        <p id="addJokeResult"></p> 
+        <p id="updateJokeResult"></p> 
       </section> 
 
       <!-- Formulario para borrar un chiste por su id-->
@@ -93,9 +93,9 @@
         <form id="deleteJoke">
           <label for="jokeIdDelete">ID del Chiste</label> 
           <input type="number" id="jokeIdDelete">
-          <button id="getJokeButton">Obtener Chiste</button>
+          <button id="deleteJokeButton">Borrar Chiste</button>
         </form> 
-        <p id="jokeResult"></p> 
+        <p id="ujokeResult"></p> 
       </section> 
 
       <!-- Formulario para buscar un chiste por su id -->
