@@ -94,6 +94,48 @@ document.addEventListener("DOMContentLoaded", () => {
 
   });
 
+  //Eliminar Chiste
+
+  document.getElementById("deleteJokeButton").addEventListener("click", async (e) => {
+    e.preventDefault();  // Prevenir el comportamiento por defecto del botón
+    let jokeId = document.getElementById("jokeIdDelete").value.trim();
+    const deleteJokeResult = document.getElementById("deleteResult");
+  
+    try {
+      // Hace un llamado a la API para borrar el chiste por su ID
+      const response = await fetch(`${apiUrl}/joke/delete/${jokeId}`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+  
+      // Verificar si el contenido de la respuesta es JSON
+      const contentType = response.headers.get("content-type");
+      if (contentType && contentType.indexOf("application/json") !== -1) {
+        const responseData = await response.json();
+        // Si ocurre algún error, mostrarlo
+        if (!response.ok) {
+          deleteJokeResult.textContent = `${
+            responseData.message || "Error al eliminar el chiste"
+          }`;
+          return;
+        }
+        // Si la eliminación es exitosa
+        deleteJokeResult.textContent = "Chiste eliminado con éxito!";
+      } else {
+        // Si la respuesta no es JSON, mostrar el contenido como texto
+        const responseText = await response.text();
+        console.log("Respuesta no JSON:", responseText);
+        deleteJokeResult.textContent = "Error: La respuesta no está en formato JSON.";
+      }
+    } catch (error) {
+      // En caso de existir algún problema con la llamada fetch indica el error
+      deleteJokeResult.textContent = error.message;
+    }
+  });
+  
+
   //Buscar chiste por ID antes de modificarlo
   document 
     .getElementById("uSearchByIdForm") 

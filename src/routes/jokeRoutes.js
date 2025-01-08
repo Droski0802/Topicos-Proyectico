@@ -6,6 +6,7 @@ const {
   getJokesByScore,
   JokesByCategory,
   updateJoke,
+  deleteJoke,
 } = require("../controllers/jokeController");
 
 // Definimos el router para esoecificar las rutas de los chistes
@@ -19,6 +20,7 @@ router.get("/search/:id", searchJokeByID);
 router.get("/score/:score", getJokesByScore); 
 router.get("/category/:category", JokesByCategory);
 router.put("/update/:id", updateJoke);
+router.delete("/delete/:id",deleteJoke);
 
 // Exportamos las rutas
 module.exports = router;
