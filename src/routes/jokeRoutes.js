@@ -5,6 +5,7 @@ const {
   searchJokeByID,
   getJokesByScore,
   JokesByCategory,
+  updateJoke,
 } = require("../controllers/jokeController");
 
 // Definimos el router para esoecificar las rutas de los chistes
@@ -17,6 +18,7 @@ router.post("/", createJoke);
 router.get("/search/:id", searchJokeByID);
 router.get("/score/:score", getJokesByScore); 
 router.get("/category/:category", JokesByCategory);
+router.put("/update/:id", updateJoke);
 
 // Exportamos las rutas
 module.exports = router;
