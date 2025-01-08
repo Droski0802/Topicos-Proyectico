@@ -73,6 +73,28 @@ const updateJoke = async (req, res) => {
   }
 };
 
+//Borrar Chiste
+const deleteJoke = async (req, res) => {
+  const { id } = req.params;  // Obtener el ID de los parámetros de la URL
+
+  try {
+    // Buscar y eliminar el chiste por su ID
+    const joke = await Joke.findByIdAndDelete(id);
+
+    if (!joke) {
+      // Si el chiste no se encuentra, devolver un error 404
+      return res.status(404).json({ error: "Chiste no encontrado" });
+    }
+
+    // Devolver un mensaje de éxito
+    res.status(200).json({ message: "Chiste eliminado con éxito" });
+  } catch (error) {
+    // Manejo de errores
+    return res.status(400).json({ error: error.message });
+  }
+};
+
+
 // Buscar chiste por ID
 const searchJokeByID = async (req, res) => {
   const { id } = req.params;
@@ -170,4 +192,5 @@ module.exports = {
   getJokesByScore,
   JokesByCategory,
   updateJoke,
+  deleteJoke,
 };
