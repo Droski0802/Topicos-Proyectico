@@ -56,7 +56,7 @@ document.addEventListener("DOMContentLoaded", () => {
           throw new Error("Error al agregar el chiste"); 
         } 
         const data = await response.json(); 
-        resultElement.textContent = "Chiste agregado con éxito!"; 
+        resultElement.textContent = `ID: ${data.id}. Chiste agregado con éxito!`; 
         // Limpiar formulario 
         document.getElementById("addJokeForm").reset(); 
       } catch (error) { 
