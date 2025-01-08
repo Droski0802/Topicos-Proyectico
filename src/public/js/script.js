@@ -62,8 +62,72 @@ document.addEventListener("DOMContentLoaded", () => {
       } catch (error) { 
         resultElement.textContent = error.message; 
       } 
-    }); 
+    });
 
+    //Modificar Chiste
+  document.getElementById("updateJokeForm").addEventListener("submit", async (e) =>{
+    e.preventDefault();
+    let jokeId = document.getElementById("uJokeIdInput").value.trim(); 
+    const updatedJoke = { 
+      text: document.getElementById("ujokeText").value.trim(), 
+      author: document.getElementById("ujokeAuthor").value.trim(), 
+      score: parseInt(document.getElementById("ujokeScore").value, 10), 
+      category: document.getElementById("ujokeCategory").value.trim(), };
+
+    try { 
+      const response = await fetch(`${apiUrl}/joke/update/${jokeId}`, 
+      { method: 'PUT', headers: { 'Content-Type': 'application/json' }, 
+      body: JSON.stringify(updatedJoke) }); 
+      const responseData = await response.json(); 
+      // Si ocurre algun error lo muestra 
+      if (!response.ok) { 
+        document.getElementById("updateJokeResult").textContent = `${ responseData.message || "Error al actualizar el chiste" }`; 
+        return; 
+      } 
+      // Si la actualización es exitosa 
+      document.getElementById("updateJokeResult").textContent = "Chiste actualizado con éxito!";
+      document.getElementById("updateJokeForm").hidden = true; 
+    } catch (error) { 
+    // En caso de existir algún problema con la llamada fetch indica el error 
+    document.getElementById("updateJokeResult").textContent = error.message; 
+    }
+
+  });
+
+  //Buscar chiste por ID antes de modificarlo
+  document 
+    .getElementById("uSearchByIdForm") 
+    .addEventListener("submit", async (e) => { 
+      e.preventDefault(); 
+      let jokeId = document.getElementById("uJokeIdInput").value.trim();
+      const jokeSearchIdResult = document.getElementById("uJokeSearchIdResult");
+
+      try {
+        // Hace un llamado a la API para buscar el chiste por su ID
+        const response = await fetch(`${apiUrl}/joke/search/${jokeId}`);
+        const responseData = await response.json();
+        // Si ocurre algun error lo muestra
+        if (!response.ok) {
+          jokeSearchIdResult.textContent = `${
+            responseData.message || "Error al buscar el chiste"
+          }`;
+          return;
+        }
+
+        //Rellena el formulario con los datos anteriores
+        document.getElementById("ujokeText").value = responseData.text;
+        document.getElementById("ujokeAuthor").value = responseData.author;
+        document.getElementById("ujokeScore").value = responseData.score;
+        document.getElementById("ujokeCategory").value = responseData.category;
+        //Muestra el formulario de modificacion
+        document.getElementById('updateJokeForm').hidden = false;
+      } catch (error) {
+        // En caso de existir algun problema con la llamada fetch indica el error
+        jokeSearchIdResult.textContent = error.message;
+      }
+      
+    });
+  
   // Buscar un chiste por su id
   document
     .getElementById("searchByIdForm")

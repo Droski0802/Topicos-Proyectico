@@ -47,6 +47,32 @@ const createJoke = async (req, res) => {
   } 
 }; 
 
+//Modificar Chiste
+const updateJoke = async (req, res) => {
+  const { id } = req.params;  // Obtener el ID de los parámetros de la URL
+  const { text, author, score, category } = req.body;  // Obtener los nuevos datos del chiste del cuerpo de la solicitud
+  console.log("LLego: "+text+author+category);
+  try {
+    // Buscar y actualizar el chiste por su ID
+    const joke = await Joke.findByIdAndUpdate(
+      id,  // ID del chiste que se va a modificar
+      { text, author, score, category },  // Nuevos datos para actualizar
+      { new: true, runValidators: true }  // Opciones: retornar el documento actualizado y ejecutar validadores
+    );
+
+    if (!joke) {
+      // Si el chiste no se encuentra, devolver un error 404
+      return res.status(404).json({ error: "Chiste no encontrado" });
+    }
+
+    // Devolver el chiste actualizado
+    res.status(200).json(joke);
+  } catch (error) {
+    // Manejo de errores
+    return res.status(400).json({ error: error.message });
+  }
+};
+
 // Buscar chiste por ID
 const searchJokeByID = async (req, res) => {
   const { id } = req.params;
@@ -143,4 +169,5 @@ module.exports = {
   searchJokeByID,
   getJokesByScore,
   JokesByCategory,
+  updateJoke,
 };
